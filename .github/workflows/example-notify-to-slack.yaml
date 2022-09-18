@@ -1,0 +1,13 @@
+name: Example for notify-to-slack.yaml
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/example-notify-to-slack.yaml
+
+jobs:
+  call:
+    uses: korosuke613/actions/.github/workflows/notify-to-slack.yaml@main
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
