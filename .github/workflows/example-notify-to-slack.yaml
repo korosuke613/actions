@@ -7,7 +7,16 @@ on:
       - .github/workflows/example-notify-to-slack.yaml
 
 jobs:
-  call:
+  always-fail:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
+
+  notify-on-fail:
+    needs: always-fail
+    if: failure()
     uses: korosuke613/actions/.github/workflows/notify-to-slack.yaml@main
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    with:
+      status: "failure"
