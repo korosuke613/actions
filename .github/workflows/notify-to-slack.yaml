@@ -5,6 +5,10 @@ on:
     secrets:
       SLACK_WEBHOOK_URL:
         required: true
+    inputs:
+      status:
+        type: string
+        required: true
   workflow_dispatch:
   push:
     paths:
@@ -17,12 +21,12 @@ jobs:
       - name: Setup
         id: setup
         run: |
-          if [[ "${{ job.status }}" == "success" ]]; then
-            echo "::set-output name=status-emoji::✅ ${{ job.status }}"
-          elif [[ "${{ job.status }}" == "failure" ]]; then
-            echo "::set-output name=status-emoji::❌ ${{ job.status }}"
+          if [[ "${{ inputs.status }}" == "success" ]]; then
+            echo "::set-output name=status-emoji::✅ ${{ inputs.status }}"
+          elif [[ "${{ inputs.status }}" == "failure" ]]; then
+            echo "::set-output name=status-emoji::❌ ${{ inputs.status }}"
           else
-            echo "::set-output name=status-emoji::⏹ ${{ job.status }}"
+            echo "::set-output name=status-emoji::⏹ ${{ inputs.status }}"
           fi
       - name: Send custom JSON data to Slack workflow
         id: slack
