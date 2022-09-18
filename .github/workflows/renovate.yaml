@@ -56,4 +56,5 @@ jobs:
           key: npm-renovate-major-v${{ needs.version.outputs.major-version }}
       - env:
           RENOVATE_CONFIG_FILE: renovate.json5
+          LOG_LEVEL: debug
         run: npx renovate --token ${{ secrets.GH_PAT_FOR_RENOVATE }} --dry-run ${{ github.repository }}
