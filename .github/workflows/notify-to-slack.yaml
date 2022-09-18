@@ -1,0 +1,69 @@
+name: Notify to Slack
+
+on:
+  workflow_call:
+    secrets:
+      SLACK_WEBHOOK_URL:
+        required: true
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/notify-to-slack.yaml
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        id: setup
+        run: |
+          if [[ "${{ job.status }}" == "success" ]]; then
+            echo "::set-output name=status-emoji::✅ ${{ job.status }}"
+          elif [[ "${{ job.status }}" == "failure" ]]; then
+            echo "::set-output name=status-emoji::❌ ${{ job.status }}"
+          else
+            echo "::set-output name=status-emoji::⏹ ${{ job.status }}"
+          fi
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1
+        with:
+          # For posting a rich message using Block Kit
+          payload: |
+            {
+              "username": "GitHub Actions",
+              "icon_url": "https://avatars.githubusercontent.com/u/44036562?s=200&v=4",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Actions build result: *${{ steps.setup.outputs.status-emoji }}*"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*repo*: ${{ github.repository }}\n*workflow*: ${{ github.workflow }}\n*ref*: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Details",
+                        "emoji": true
+                      },
+                      "url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
