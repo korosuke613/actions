@@ -2,10 +2,10 @@ name: Renovate Config
 
 on: 
   workflow_call:
-  pull_request:
+  push:
     paths:
       - .github/workflows/validate-renovate-config.yaml
-      - renovate.json5
+      - renovate.json5    
 
 jobs:
   validate:
