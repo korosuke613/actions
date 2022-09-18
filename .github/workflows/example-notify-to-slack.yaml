@@ -9,6 +9,7 @@ on:
 jobs:
   always-fail:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - run: exit 1
 
