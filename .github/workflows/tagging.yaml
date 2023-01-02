@@ -1,4 +1,5 @@
 name: Tagging and Release
+run-name: Tagging ${{ inputs.version }}
 
 on:
   workflow_call:
