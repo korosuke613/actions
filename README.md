@@ -20,3 +20,9 @@ Create git tag and GitHub Release.
 
 - Definition: [tagging.yaml](./.github/workflows/tagging.yaml)
 - Example: [example-tagging.yaml](./.github/workflows/example-tagging.yaml)
+
+## Release
+1. Open [Tagging and Release action page](https://github.com/korosuke613/actions/actions/workflows/tagging.yaml).
+2. Click `Run workflow`.
+3. Input version.
+4. Click `Run workflow`.
