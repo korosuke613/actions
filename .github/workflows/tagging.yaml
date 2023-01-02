@@ -31,7 +31,29 @@ on:
         default: false
 
 jobs:
-  pass:
+  tagging:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "hoge"
+      - uses: actions/checkout@v3
+      - run: |
+          git tag ${{ inputs.version }}
+          git push --tags origin ${{ inputs.version }}
+
+  update-major-version:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.isMajorVersion }}
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          MAJOR_VERSION=$(echo ${{ inputs.version }} | awk -F'.' '{print $1}')
+          echo $MAJOR_VERSION
+          git tag --force $MAJOR_VERSION
+          git push --force --tags origin $MAJOR_VERSION
+
+  create-release:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.isRelease }}
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          gh release create ${{ inputs.version }} --generate-notes
