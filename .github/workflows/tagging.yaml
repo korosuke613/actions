@@ -1,0 +1,37 @@
+name: Tagging and Release
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      isMajorVersion:
+        type: boolean
+        required: false
+        default: true
+      isRelease:
+        type: boolean
+        required: false
+        default: false
+
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: "Tagging version (ex: v1.0.1)"
+        required: true
+      isMajorVersion:
+        type: boolean
+        description: If true, it will update the MAJOR version of the tag.
+        default: true
+      isRelease:
+        type: boolean
+        description: If true, it will create a GitHub Release
+        default: false
+
+jobs:
+  pass:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hoge"
