@@ -1,0 +1,12 @@
+name: Example for tagging.yaml
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call:
+    uses: korosuke613/actions/.github/workflows/renovate.yaml@main
+    with:
+      version: v1.0.1
+      isMajorVersion: true
+      isRelease: true
