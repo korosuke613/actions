@@ -21,15 +21,7 @@ jobs:
       - name: Get latest major renovate version
         id: version
         run: |
-          echo "::set-output name=renovate::$(npm show renovate version --no-update-notifier | cut -d . -f 1)"
-
-      - name: Check exists GH_PAT_FOR_RENOVATE
-        env:
-          GH_PAT_FOR_RENOVATE: ${{ secrets.GH_PAT_FOR_RENOVATE }}
-        id: gh-pat-for-renovate
-        if: ${{ env.GH_PAT_FOR_RENOVATE != '' }}
-        run: echo "::set-output name=is-set::true"
-
+          echo "renovate=$(npm show renovate version --no-update-notifier | cut -d . -f 1)" >> $GITHUB_OUTPUT
 
   validate:
     name: Validate
