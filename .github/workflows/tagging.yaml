@@ -13,7 +13,7 @@ on:
       isRelease:
         type: boolean
         required: false
-        default: false
+        default: true
 
   workflow_dispatch:
     inputs:
@@ -28,7 +28,7 @@ on:
       isRelease:
         type: boolean
         description: If true, it will create a GitHub Release
-        default: false
+        default: true
 
 jobs:
   tagging:
@@ -53,6 +53,9 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     if: ${{ inputs.isRelease }}
+    needs: tagging
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v3
       - run: |
