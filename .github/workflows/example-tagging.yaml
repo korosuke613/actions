@@ -19,7 +19,7 @@ on:
 
 jobs:
   call:
-    uses: korosuke613/actions/.github/workflows/renovate.yaml@main
+    uses: korosuke613/actions/.github/workflows/tagging.yaml@main
     with:
       version: ${{ inputs.version }}
       isMajorVersion: ${{ inputs.isMajorVersion }}
