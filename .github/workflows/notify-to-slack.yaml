@@ -22,11 +22,11 @@ jobs:
         id: setup
         run: |
           if [[ "${{ inputs.status }}" == "success" ]]; then
-            echo "::set-output name=status-emoji::✅ ${{ inputs.status }}"
+            echo "status-emoji=✅ ${{ inputs.status }}" >> $GITHUB_OUTPUT
           elif [[ "${{ inputs.status }}" == "failure" ]]; then
-            echo "::set-output name=status-emoji::❌ ${{ inputs.status }}"
+            echo "status-emoji=❌ ${{ inputs.status }}" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=status-emoji::⏹ ${{ inputs.status }}"
+            echo "status-emoji=⏹ ${{ inputs.status }}" >> $GITHUB_OUTPUT
           fi
       - name: Send custom JSON data to Slack workflow
         id: slack

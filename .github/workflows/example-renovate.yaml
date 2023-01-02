@@ -10,8 +10,3 @@ on:
 jobs:
   call:
     uses: korosuke613/actions/.github/workflows/renovate.yaml@main
-
-    # `GH_PAT_FOR_RENOVATE` is Personal Access Token for GitHub, grant `repo` scope.
-    #  Optional secret. If not set, dry-run will not be executed.
-    secrets:
-      GH_PAT_FOR_RENOVATE: ${{ secrets.GH_PAT_FOR_RENOVATE }}
