@@ -1,0 +1,17 @@
+name: Renovate dry-run
+
+on: 
+  push:
+    paths: 
+      - renovate.json5
+      - .github/workflows/renovate-dry-run.yaml
+  workflow_dispatch:
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: korosuke613/renovate-dry-run-action@v1
+        with:
+          config-file: renovate.json5
