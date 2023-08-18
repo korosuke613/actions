@@ -3,7 +3,7 @@ description: get changed files
 
 inputs:
   base-ref:
-    description: "base ref to compare with (ex: `${{ github.event.pull_request.base.ref }}`, default: `main``)"
+    description: "base ref to compare with (ex: context of `github.event.pull_request.base.ref`, default: `main`)"
     default: main
 
 outputs:
