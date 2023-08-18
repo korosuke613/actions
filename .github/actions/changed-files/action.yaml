@@ -19,7 +19,7 @@ runs:
         fetch-depth: 2
         ref: ${{ inputs.base-ref }}
     - name: Switch to head
-      run: git switch -
+      run: git checkout -
       shell: bash
     - run: |
         echo "files=$(git diff --name-only ${{ inputs.base-ref }})" >> $GITHUB_OUTPUT
