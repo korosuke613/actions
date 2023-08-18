@@ -1,0 +1,27 @@
+name: Changed files action
+description: get changed files
+
+inputs:
+  base-ref:
+    description: "base ref to compare with (ex: context of `github.event.pull_request.base.ref`, default: `main`)"
+    default: main
+
+outputs:
+  files: 
+    description: "Changed files"
+    value: ${{ steps.changed-files.outputs.files }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
+        ref: ${{ inputs.base-ref }}
+    - name: Switch to head
+      run: git checkout -
+      shell: bash
+    - run: |
+        echo "files=$(git diff --name-only ${{ inputs.base-ref }})" >> $GITHUB_OUTPUT
+      shell: bash
+      id: changed-files

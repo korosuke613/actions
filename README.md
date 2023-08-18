@@ -1,6 +1,14 @@
 # actions
 My GitHub Actions
 
+## Actions
+
+### changed-files
+Get changed files when pull request.
+
+- Definition: [changed-files](./.github/actions/changed-files/action.yml)
+- Example: [example-changed-files.yaml](./.github/workflows/example-changed-files.yaml)
+
 ## Callable Workflows
 
 ### renovate.yaml
