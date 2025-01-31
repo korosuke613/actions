@@ -35,7 +35,7 @@ jobs:
   tagging:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           git tag ${{ inputs.version }}
           git push --tags origin ${{ inputs.version }}
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.isMajorVersion }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           MAJOR_VERSION=$(echo ${{ inputs.version }} | awk -F'.' '{print $1}')
           echo $MAJOR_VERSION
@@ -58,6 +58,6 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           gh release create ${{ inputs.version }} --generate-notes
