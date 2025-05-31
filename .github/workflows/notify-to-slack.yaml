@@ -30,7 +30,7 @@ jobs:
           fi
       - name: Send custom JSON data to Slack workflow
         id: slack
-        uses: slackapi/slack-github-action@v1
+        uses: slackapi/slack-github-action@v2
         with:
           # For posting a rich message using Block Kit
           payload: |
